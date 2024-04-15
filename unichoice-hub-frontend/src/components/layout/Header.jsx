@@ -7,7 +7,7 @@ const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <div>
-      <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
+      <nav className="flex justify-between items-center p-3 bg-gray-800 text-white">
         <div className="flex items-center">
           <img src="/nav-icon.png" alt="Nav Icon" className="w-8 h-8 mr-2" />
           <Link to="/">

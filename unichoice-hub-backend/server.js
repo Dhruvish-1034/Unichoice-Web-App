@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 // parse the request body
 app.use(express.json());
@@ -23,6 +23,8 @@ app.use(cors(corsOptions));
 connect();
 
 app.use("/", require("./src/Routes/userRoutes"));
+app.use("/admin", require("./src/Routes/adminRoutes"));
+app.use("/admin", require("./src/Routes/StudentListRoutes"));
 
 app.listen(PORT, () => {
   console.log("App is Running on localhost", PORT);

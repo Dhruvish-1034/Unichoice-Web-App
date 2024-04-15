@@ -14,6 +14,7 @@ import { CiMap } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Loading from "../../components/Basic/Loader";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,25 +28,27 @@ const initialVal = {
   password: "",
 };
 
-const Login = () => {
+const AdminLogin = () => {
   const cookies = parseCookies();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (values) => {
     try {
       setIsLoading(true);
-      const response = await Axios.post("http://localhost:4000/login", values);
+      const response = await Axios.post(
+        "http://localhost:4000/admin/login",
+        values
+      );
       if (response && response?.status === 200) {
         if (response?.data?.code === 200) {
-          setCookie(null, "user", response.data, {});
-          console.log({ cookies });
           console.log(response);
+          setCookie(null, "admin", response.data.data, {});
+          console.log({ cookies });
           toast.success(response?.data?.message);
-        } else if (response?.data?.code === 400) {
-          toast.error(response?.data?.message);
-        } else if (response?.data?.code === 404) {
+          setTimeout(() => navigate("/admin/dashboard"), 2000);
+        } else if (response?.data?.code === 401) {
           toast.error(response?.data?.message);
         }
       }
@@ -66,7 +69,7 @@ const Login = () => {
     <div>
       {isLoading ? <Loading /> : ""}
       <FormikProvider value={formik}>
-        <div className="flex h-[calc(100vh_-_64px)]">
+        <div className="flex h-screen">
           {/* left section */}
           <div className="hidden w-6/12 lg:flex justify-center text-gray-300 items-center bg-slate-700">
             <div>
@@ -124,7 +127,9 @@ const Login = () => {
                   <Link to="/">UniChoice Hub</Link>
                 </h1>
               </div>
-              <h1 className="text-[26px] mt-4 text-[#344054] bold">Login</h1>
+              <h1 className="text-[26px] mt-4 text-[#344054] bold">
+                Admin Login
+              </h1>
               <form onSubmit={formik.handleSubmit}>
                 <div className="mb-3">
                   <label className="block mt-3 mb-1" htmlFor="email">
@@ -173,10 +178,10 @@ const Login = () => {
                     component="p"
                   />
                 </div>
-                <div className="flex justify-between">
-                  <Link to="/auth/signup">Signup</Link>
-                  <Link>Forgot password?</Link>
-                </div>
+                {/* <div className="flex justify-between">
+                    <Link to="/auth/signup">Signup</Link>
+                    <Link>Forgot password?</Link>
+                  </div> */}
                 <button
                   type="submit"
                   className="w-full border mt-6 bg-[#005C69] text-white p-1"
@@ -192,4 +197,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

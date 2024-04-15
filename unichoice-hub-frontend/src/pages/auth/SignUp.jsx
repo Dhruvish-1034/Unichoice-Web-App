@@ -10,7 +10,7 @@ import { SlCalender } from "react-icons/sl";
 import { LuMousePointerClick } from "react-icons/lu";
 import { FaEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useImmer } from "use-immer";
 import Loading from "../../components/Basic/Loader";
@@ -55,11 +55,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useImmer({
     password: false,
     confirmPassword: false,
   });
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -96,23 +97,23 @@ const SignUp = () => {
       {isLoading ? <Loading /> : ""}
       <FormikProvider value={formik}>
         <div className="flex lg:flex  h-[calc(100vh_-_64px)]">
-          <div className="hidden w-6/12 justify-center items-center bg-slate-700 lg:flex">
+          <div className="hidden w-6/12 justify-center items-center bg-slate-700 text-gray-300 lg:flex">
             <div>
               <p className="text-[24px] pb-4">Why should I create an account</p>
               <div className="flex my-6">
-                <FaGlobeAmericas className="text-[42px] mr-4" />
+                <FaGlobeAmericas className="text-[42px] mr-4 text-black" />
                 <p className="py-2">Be the first to know of new rankings</p>
               </div>
               <div className="flex my-6">
-                <GiSpellBook className="text-[42px] mr-4" />
+                <GiSpellBook className="text-[42px] mr-4 text-black" />
                 <p className="py-4">Get access to members-only content</p>
               </div>
               <div className="flex my-6">
-                <SlCalender className="text-[42px] mr-4" />
+                <SlCalender className="text-[42px] mr-4 text-black" />
                 <p className="py-2">Register for our free student events</p>
               </div>
               <div className="flex my-6">
-                <LuMousePointerClick className="text-[42px] mr-4" />
+                <LuMousePointerClick className="text-[42px] mr-4 text-black" />
                 <p className="py-2">Join to Apply colleges online</p>
               </div>
             </div>
@@ -437,7 +438,6 @@ const SignUp = () => {
             </div>
           </div>
         </div>
-        <ToastContainer theme="dark" />
       </FormikProvider>
     </div>
   );

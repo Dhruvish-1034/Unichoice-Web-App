@@ -1,6 +1,5 @@
 const User = require("../Models/userSchema");
 const jwt = require("jsonwebtoken");
-const { response } = require("express");
 const bcrypt = require('bcrypt');
 
 const signup = async (req, res) => {
@@ -22,7 +21,7 @@ const signup = async (req, res) => {
       fullName,
       email,
       phoneNumber,
-      hashedPassword: await bcrypt.hash(password, salt),
+      password: await bcrypt.hash(password, salt),
       role
     })
 
@@ -56,9 +55,8 @@ const login = async (req, res) => {
     const user = await User.findOne({
       email,
     });
-
     if (user) {
-      const isMatch = await bcrypt.compare(password, user.hashedPassword);
+      const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
         const role = user.role;
         const data = { email, password, role };

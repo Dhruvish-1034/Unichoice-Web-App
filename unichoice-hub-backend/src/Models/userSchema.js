@@ -5,6 +5,7 @@ const ReactFormDataSchema = new mongoose.Schema(
     role: {
       type: String,
       require: true,
+      enum: ['Student', 'University']
     },
     fullName: {
       type: String,
@@ -18,7 +19,7 @@ const ReactFormDataSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    hashedPassword: {
+    password: {
       type: String,
       require: true,
     },

@@ -21,8 +21,10 @@ function UniversityDetailPage() {
         }}
         className="sm:flex justify-center items-center sm:h-[40vh] block h-max pt-10 sm:pt-0"
       >
-        <img src={unilogo} className="h-[12vh] sm:mb-[10vh]" alt="" />
-        <div className="text-white">
+        <div className="w-full sm:w-auto flex justify-center">
+          <img src={unilogo} className="h-[12vh] sm:mb-[10vh]" alt="" />
+        </div>
+        <div className="text-white sm:mx-0 mx-2">
           <div className="ml-2">
             <p className="text-[24px] mt-[10px]">
               New LJ Institute of Engineering and Technology
@@ -31,7 +33,7 @@ function UniversityDetailPage() {
               <IoLocationOutline className="mt-1" />
               <p className="mb-[50px]">Ahmedabad,Gujarat,India</p>
             </div>
-            <div className="flex pr-2 ">
+            <div className="flex pr-2 pb-2 sm:pb-0">
               <button type="button" className="flex border px-2 py-1.5">
                 <BiAddToQueue className="mt-1.5 mr-2" />
                 <p>Compare</p>
