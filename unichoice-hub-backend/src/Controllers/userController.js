@@ -1,43 +1,75 @@
 const User = require("../Models/userSchema");
+const universityDetail = require("../Models/universityDetail")
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
 const signup = async (req, res) => {
 
   try {
-    const { firstName, lastName, email, phoneNumber, password, role, universityName, universityWebsite } = req.body;
+    const { firstName, lastName, email, phoneNumber, password, role, universityName, universityWebsite, status } = req.body;
     // User already exits in DB
     const isEmail = await User.findOne({ email });
+    const isWebsite = await universityDetail.findOne({ universityWebsite })
+    const isUniversityName = await universityDetail.findOne({ universityName })
     if (isEmail) {
       return res.json({
         code: 400,
-        message: "Email is already exists !!"
+        message: "Email already exists !!"
       })
     }
-    const fullName = firstName + " " + lastName;
+
+    if (isUniversityName) {
+      return res.json({
+        code: 400,
+        message: "Univeristy Name already taken !!"
+      })
+    }
+
+    if (isWebsite) {
+      return res.json({
+        code: 400,
+        message: "Website already register !!"
+      })
+    }
+
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
     const userData = new User({
-      fullName,
+      firstName,
+      lastName,
       email,
       phoneNumber,
       password: await bcrypt.hash(password, salt),
-      role
+      role,
+      status
     })
 
     if (role == "University") {
-      userData["universityName"] = universityName;
-      userData["universityWebsite"] = universityWebsite;
-    }
+      const response1 = await User.create(userData);
 
-    const resposne = await User.create(userData);
-    if (resposne) {
-      return res.json({
-        code: 200,
-        message: "Signup Successfully !!"
-      })
+      if (response1) {
+        const universityData = new universityDetail({
+          universityName,
+          universityWebsite,
+          userId: response1._id
+        })
+        const response2 = await universityDetail.create(universityData);
+        if (response1 && response2) {
+          return res.json({
+            code: 200,
+            message: "Signup Successfully !!"
+          })
+        }
+      }
+    } else {
+      const response = await User.create(userData);
+      if (response) {
+        return res.json({
+          code: 200,
+          message: "Signup Successfully !!"
+        })
+      }
     }
-
     return res.status(400).json({ message: "Bad Request !" });
 
   } catch (error) {
@@ -55,16 +87,22 @@ const login = async (req, res) => {
     const user = await User.findOne({
       email,
     });
+
+    const universityData = await universityDetail.findOne({ userId: user._id })
+
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
+        const userId = user._id
         const role = user.role;
-        const data = { email, password, role };
+        const universityId = universityData._id;
+        const data = { userId, role, universityId };
         let jwtsecretkey = process.env.JWT_SECRET_KEY;
         const token = jwt.sign(data, jwtsecretkey);
         return res.json({
           code: 200,
-          data: token,
+          data,
+          authToken: token,
           message: "Login Successfull"
         })
       } else {

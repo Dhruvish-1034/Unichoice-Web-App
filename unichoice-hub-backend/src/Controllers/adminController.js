@@ -5,23 +5,21 @@ const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        const userEmail = await User.findOne({
+        const user = await User.findOne({
             email,
         });
-        if (userEmail) {
-            const userPassword = await User.findOne({
-                password
-            })
-            if (userPassword) {
-                const id = userEmail._id;
-                const role = userEmail.role;
+        if (user) {
+            if (user.password === password) {
+                const id = user._id;
+                const role = user.role;
                 const adminData = { id, role }
                 let jwtsecretkey = process.env.JWT_SECRET_KEY;
                 const token = jwt.sign(adminData, jwtsecretkey);
                 return res.json({
                     code: 200,
                     message: "Login Successfull",
-                    data: token
+                    authToken: token,
+                    data: adminData,
                 })
             } else {
                 return res.json({
@@ -29,7 +27,7 @@ const adminLogin = async (req, res) => {
                     message: "Invalid Password"
                 })
             }
-        } else if (!userEmail) {
+        } else if (!user) {
             return res.json({
                 code: 401,
                 message: "Invalid Email"

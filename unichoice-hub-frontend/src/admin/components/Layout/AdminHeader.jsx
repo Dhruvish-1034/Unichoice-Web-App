@@ -5,19 +5,17 @@ import { Link } from "react-router-dom";
 const AdminHeader = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
-    <div>
-      <div className="flex justify-between lg:my-4 ">
-        <div className="flex">
-          <div className="lg:hidden">
-            <GiHamburgerMenu
-              className="text-xl mt-2"
-              onClick={() => setIsNavOpen((value) => !value)}
-            />
-          </div>
-          <p className="hidden md:block text-[22px] font-bold md:ml-2 lg:ml-0">
-            University
-          </p>
+    <div className="fixed">
+      <div className="flex lg:my-4">
+        <div className="lg:hidden">
+          <GiHamburgerMenu
+            className="text-xl mt-2"
+            onClick={() => setIsNavOpen((value) => !value)}
+          />
         </div>
+        <p className="hidden md:block text-[22px] font-bold md:ml-2 lg:ml-0">
+          Student
+        </p>
       </div>
       {isNavOpen && (
         <div className="bg-gray-200 fixed text-slate-500 z-20 w-[20vw]">

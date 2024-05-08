@@ -17,7 +17,7 @@ const universityType = [
   { value: "Private", label: "Private" },
 ];
 
-const University = () => {
+const UniversityPage = () => {
   return (
     <div className="flex justify-center mt-[18vh]">
       <div className="w-9/12">
@@ -63,4 +63,4 @@ const University = () => {
   );
 };
 
-export default University;
+export default UniversityPage;

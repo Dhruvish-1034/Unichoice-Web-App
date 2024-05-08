@@ -4,8 +4,6 @@ import universityLogo from "../../image/uni-logo.jpg";
 import { IoLocationOutline } from "react-icons/io5";
 import { BiAddToQueue } from "react-icons/bi";
 import { CiHeart } from "react-icons/ci";
-import { GoTrophy } from "react-icons/go";
-import { CiStar } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 const UniversityCard = () => {
@@ -25,9 +23,7 @@ const UniversityCard = () => {
               alt="uni-logo"
             />
             <p className="mt-6 lg:ml-6 ml-2 font-bold">
-              <Link to="/university/universitydetail">
-                New LJ University of Engineering and Technology
-              </Link>
+              <Link to="/university/universitydetail">Univeristy Title</Link>
             </p>
           </div>
           <div className="flex mt-2 ml-4 lg:ml-0">
@@ -35,7 +31,7 @@ const UniversityCard = () => {
             <p>Ahmedabad,Gujarat,India</p>
           </div>
           <hr className="block mt-4 mb-4 lg:hidden" />
-          <div>
+          {/* <div>
             <div className="grid grid-cols-2 lg:flex lg:justify-between mt-2 lg:w-6/12 ml-6 lg:ml-0">
               <div>
                 <p>University Ranking</p>
@@ -53,7 +49,7 @@ const UniversityCard = () => {
               </div>
             </div>
             <hr className="block mt-4 lg:mt-0 lg:hidden" />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="ml-6 lg:mb-4 grid lg:grid-cols-6 grid-cols-2 my-2 gap-4">
@@ -80,12 +76,12 @@ const UniversityCard = () => {
             <span className="block font-bold">Yes</span>
           </div>
         </p>
-        <p className="border-lg-hidden lg:border-l-2">
+        {/* <p className="border-lg-hidden lg:border-l-2">
           <div className="lg:px-4">
             Size
             <span className="block font-bold">M</span>
           </div>
-        </p>
+        </p> */}
         <p className="border-lg-hidden lg:border-l-2">
           <div className="lg:px-4">
             Total Faculty

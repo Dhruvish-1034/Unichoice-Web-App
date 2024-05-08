@@ -14,6 +14,7 @@ import { CiMap } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import Loading from "../../components/Basic/Loader";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,8 +30,9 @@ const initialVal = {
 
 const Login = () => {
   const cookies = parseCookies();
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (values) => {
@@ -39,9 +41,17 @@ const Login = () => {
       const response = await Axios.post("http://localhost:4000/login", values);
       if (response && response?.status === 200) {
         if (response?.data?.code === 200) {
-          setCookie(null, "user", response.data, {});
-          console.log({ cookies });
-          console.log(response);
+          setCookie(null, "user", JSON.stringify(response?.data?.data), {
+            path: "/",
+          });
+          setCookie(null, "authToken", response?.data?.authToken, {
+            path: "/",
+          });
+          if (response?.data?.data?.role === "University") {
+            navigate("/university/dashboard");
+          } else {
+            navigate("/student");
+          }
           toast.success(response?.data?.message);
         } else if (response?.data?.code === 400) {
           toast.error(response?.data?.message);

@@ -1,31 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <div className="hidden lg:block h-[100vh]  bg-gray-200 pl-6 pr-6 pt-6 text-slate-500">
-      <div className="grid grid-cols-1 lg:gap-y-[48vh] xl:gap-y-[61vh]">
+    <div className="hidden fixed lg:block h-[100vh]  bg-gray-200 pl-6 pr-6 pt-6 text-slate-500">
+      <div className="grid grid-cols-1 lg:gap-y-[52vh] xl:gap-y-[62vh]">
         <div>
           <div className="flex pb-14">
             {/* <img src="/" alt="logo" /> */}
             <p className="font-bold text-[24px] text-black">UniChoice Hub</p>
           </div>
-          <Link to="university">
-            <p className="active:bg-slate-500 hover:bg-slate-400 hover:text-white  rounded-sm h-9 pt-1 pl-2">
-              University
-            </p>
-          </Link>
-          <Link to="student">
-            <p className="active:bg-slate-500 hover:bg-slate-400 hover:text-white rounded-sm h-9 pt-1 pl-2">
+          <Link to="">
+            <p
+              className={`hover:bg-slate-400 hover:text-white rounded-sm h-9 pt-1 pl-2 my-2.5 ${
+                location.pathname === "/admin/dashboard"
+                  ? "bg-slate-500 text-white"
+                  : ""
+              }`}
+            >
               Students
             </p>
           </Link>
-          <p className="active:bg-slate-500 hover:bg-slate-400 hover:text-white rounded-sm h-9 pt-1 pl-2">
-            Openings
-          </p>
+          <Link to="university">
+            <p
+              className={`active:bg-slate-500 hover:bg-slate-400 hover:text-white  rounded-sm h-9 pt-1 pl-2 mb-2.5 ${
+                location.pathname === "/admin/dashboard/university"
+                  ? "bg-slate-500 text-white"
+                  : ""
+              }`}
+            >
+              University
+            </p>
+          </Link>
         </div>
         <div className="relative">
           <hr />

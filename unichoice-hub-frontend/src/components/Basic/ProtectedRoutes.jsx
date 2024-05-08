@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 const ProtectedRoutes = () => {
   const cookies = parseCookies();
 
-  const adminCookie = cookies.admin;
-  const token = adminCookie ? true : false;
+  const user = cookies.user;
+  const token = user ? true : false;
   return token ? <Outlet /> : <Navigate to="/admin/login" />;
 };
 

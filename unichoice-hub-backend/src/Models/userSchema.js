@@ -7,7 +7,11 @@ const ReactFormDataSchema = new mongoose.Schema(
       require: true,
       enum: ['Student', 'University']
     },
-    fullName: {
+    firstName: {
+      type: String,
+      require: true,
+    },
+    lastName: {
       type: String,
       require: true,
     },
@@ -27,11 +31,9 @@ const ReactFormDataSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    universityName: {
+    status: {
       type: String,
-    },
-    universityWebsite: {
-      type: String,
+      require: true,
     },
   },
   { timestamps: true }

@@ -31,14 +31,24 @@ const intialVal = {
   role: "Student",
   universityName: "",
   universityWebsite: "",
+  status: "Active",
 };
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
-    .required("Name is Required!")
+    .required("First Name is Required!")
     .matches(/[^0-9]/, "Name should not contain any Numbers")
     .matches(/[\w]/, "Name should not have special charater"),
-  email: Yup.string().required("Email is Required!"),
+  lastName: Yup.string()
+    .required("Last Name is Required!")
+    .matches(/[^0-9]/, "Name should not contain any Numbers")
+    .matches(/[\w]/, "Name should not have special charater"),
+  email: Yup.string()
+    .required("Email is Required!")
+    .matches(
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+      "Enter correct Email"
+    ),
   phoneNumber: Yup.string().required("phone Number is Required!"),
   password: Yup.string()
     .required("Password is Required!")
@@ -64,17 +74,15 @@ const SignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (values, { resetPassword }) => {
+  const handleSubmit = async (values) => {
     try {
       setIsLoading(true);
       const response = await Axios.post("http://localhost:4000/signup", values);
       if (response && response?.status === 200) {
         if (response?.data?.code === 200) {
-          console.log(response);
           navigate("/auth/login");
           toast.success(response?.data?.message);
         } else if (response?.data?.code === 400) {
-          console.log(response);
           toast.error(response?.data?.message);
         }
       }
@@ -407,13 +415,7 @@ const SignUp = () => {
                         name="universityWebsite"
                         onChange={formik.handleChange}
                         value={formik.values.universityWebsite}
-                        onBlur={(e) => {
-                          let fieldName = e?.target?.name;
-                          formik.setFieldValue(
-                            fieldName,
-                            formik.values[fieldName]?.trim()
-                          );
-                        }}
+                        onBlur={(e) => {}}
                         className=" h-10 pl-2 border rounded w-full"
                         placeholder="Enter university Website"
                         required

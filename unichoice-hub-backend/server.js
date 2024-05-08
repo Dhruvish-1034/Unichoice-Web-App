@@ -7,7 +7,6 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT;
 
-// parse the request body
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,13 +17,15 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.static("public"));
 
-// establish db connection
 connect();
 
 app.use("/", require("./src/Routes/userRoutes"));
 app.use("/admin", require("./src/Routes/adminRoutes"));
-app.use("/admin", require("./src/Routes/StudentListRoutes"));
+app.use("/user", require("./src/Routes/studentRoutes"));
+app.use("/university", require("./src/Routes/universityRoutes"));
+app.use("/universityadmission", require("./src/Routes/admissionRoutes"));
 
 app.listen(PORT, () => {
   console.log("App is Running on localhost", PORT);

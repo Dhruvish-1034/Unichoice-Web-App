@@ -26,9 +26,7 @@ function UniversityDetailPage() {
         </div>
         <div className="text-white sm:mx-0 mx-2">
           <div className="ml-2">
-            <p className="text-[24px] mt-[10px]">
-              New LJ Institute of Engineering and Technology
-            </p>
+            <p className="text-[24px] mt-[10px]">University Title</p>
             <div className="flex">
               <IoLocationOutline className="mt-1" />
               <p className="mb-[50px]">Ahmedabad,Gujarat,India</p>

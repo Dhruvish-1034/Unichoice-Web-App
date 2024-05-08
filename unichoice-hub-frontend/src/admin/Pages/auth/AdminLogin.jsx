@@ -13,7 +13,7 @@ import { SlCalender } from "react-icons/sl";
 import { CiMap } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import Loading from "../../components/Basic/Loader";
+import Loading from "../../../components/Basic/Loader";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
@@ -43,19 +43,20 @@ const AdminLogin = () => {
       );
       if (response && response?.status === 200) {
         if (response?.data?.code === 200) {
-          console.log(response);
-          setCookie(null, "admin", response.data.data, {});
+          console.log(response?.data?.data);
+          setCookie(null, "user", JSON.stringify(response.data.data), {
+            path: "/",
+          });
           console.log({ cookies });
           toast.success(response?.data?.message);
           setTimeout(() => navigate("/admin/dashboard"), 2000);
+          setIsLoading(false);
         } else if (response?.data?.code === 401) {
           toast.error(response?.data?.message);
         }
       }
     } catch (error) {
       console.log("error", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -67,7 +68,7 @@ const AdminLogin = () => {
 
   return (
     <div>
-      {isLoading ? <Loading /> : ""}
+      {isLoading && <Loading />}
       <FormikProvider value={formik}>
         <div className="flex h-screen">
           {/* left section */}
@@ -178,10 +179,6 @@ const AdminLogin = () => {
                     component="p"
                   />
                 </div>
-                {/* <div className="flex justify-between">
-                    <Link to="/auth/signup">Signup</Link>
-                    <Link>Forgot password?</Link>
-                  </div> */}
                 <button
                   type="submit"
                   className="w-full border mt-6 bg-[#005C69] text-white p-1"

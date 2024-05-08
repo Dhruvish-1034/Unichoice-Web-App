@@ -7,9 +7,11 @@ const AdminDashboard = () => {
   return (
     <div className="grid grid-cols-6">
       <SideBar />
-      <div className="col-span-6 lg:col-span-5 mx-4">
+      <div className="col-span-6 lg:col-span-5 mx-4 pl-[250px] w-[1490px]">
         <AdminHeader />
-        <Outlet />
+        <div>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

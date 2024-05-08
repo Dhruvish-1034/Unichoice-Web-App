@@ -1,3 +1,14 @@
 export const firstNameRegex = /^[a-zA-Z]+$/;
 export const lastNameRegex = /^[a-zA-Z]+$/;
-export const phoneNumberRegex = /^[5-9]\d{0,9}$/;
+export const phoneNumberRegex = /^[6-9]\d{0,9}$/;
+export const universityNameRegex = /^[A-Za-z\s]+$/;
+export const totalStudentsRegex = /^[0-9]\d{0,2}$/;
+export const universityWebsiteRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
+export const totalFacultyRegex = /^[0-9]\d{0,2}$/;
+export const totalCoursesRegex = /^[0-9]\d{0,1}$/;
+export const totalSeatsRegex = /^[0-9]\d{0,4}$/;
+export const courseName = /^[A-Za-z\s]+$/;
+export const tutionFees = /^[0-9]\d{0,9}$/;
+export const seatIntakes = /^[0-9]\d{0,9}$/;
+export const marksRequired = /^[0-9]\d{0,2}$/;
+export const acceptingExams = /^[A-Za-z0-9\s]+$/;
